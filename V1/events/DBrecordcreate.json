@@ -1,0 +1,11 @@
+{
+    "StackAction": "DB Put Item",
+    "TableName": "v613459-User-Data",
+    "PrimaryKeyName": "UserId",
+    "PrimaryKeyValue": "DCEFW",
+    "Userdata": {
+      "UserName": "edge",
+      "WorkStation": "Infy",
+      "Team": "Product Development"
+    }
+  }

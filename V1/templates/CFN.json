@@ -1,0 +1,82 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "AWS CloudFormation Sample Template DynamoDB_Table",
+	"Parameters": {
+		"TableName": {
+			"Description": "DynamoDB Table Name",
+			"Type": "String",
+			"Default": "S",
+			"AllowedPattern": "[a-zA-Z0-9]*",
+			"MinLength": "1",
+			"MaxLength": "20",
+			"ConstraintDescription": "must contain only alphanumberic characters"
+
+		},
+		"HashKeyElementName": {
+			"Description": "PrimaryKey Name",
+			"Type": "String",
+			"Default": "Provisioned",
+			"AllowedPattern": "[a-zA-Z0-9]*",
+			"MinLength": "1",
+			"MaxLength": "20",
+			"ConstraintDescription": "must contain only alphanumberic characters"
+		},
+		"HashKeyElementType": {
+			"Description": "PrimaryKey Type",
+			"Type": "String",
+			"Default": "S",
+			"MinLength": "1",
+			"MaxLength": "20",
+			"ConstraintDescription": "must be either S"
+		},
+		"ReadCapacityUnits": {
+			"Description": "Provisioned read throughput",
+			"Type": "Number",
+			"Default": "5",
+			"MinValue": "5",
+			"MaxValue": "10000",
+			"ConstraintDescription": "must be between 5 and 10000"
+		},
+		"WriteCapacityUnits": {
+			"Description": "Provisioned write throughput",
+			"Type": "Number",
+			"Default": "10",
+			"MinValue": "5",
+			"MaxValue": "10000",
+			"ConstraintDescription": "must be between 5 and 10000"
+		}
+	},
+	"Resources": {
+      "MyDynamoDbTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+              "TableName": "{{TableName}}",
+              "AttributeDefinitions": [
+                  {
+                      "AttributeName":"{{HashKeyElementName}}",
+                    
+                      "AttributeType": "{{HashKeyAttributeType}}"
+                      
+                  }
+              ],
+              "KeySchema": [
+                  {
+                      "AttributeName":  "{{HashKeyElementName}}",
+                      "KeyType": "{{HashKeyTypeName}}"
+                  }
+
+              ],
+              "ProvisionedThroughput": {
+                  "ReadCapacityUnits": 5,
+                  "WriteCapacityUnits": 5
+              }
+          }
+      }
+  },
+	"Outputs": {
+		"TableName": {
+			"Value": "{{TableName}}",
+			"Description": "Table name of the newly created DynamoDB table"
+		}
+	}
+}
